@@ -1,7 +1,7 @@
 {
-  "name": "grunt-unsilence",
+  "name": "grunt-attract",
   "version": "0.0.1",
-  "description": "Add classes for silent selectors",
+  "description": "Act on your attributes",
   "repository": "",
   "author": {
     "name": "Chris Jones",
@@ -11,7 +11,7 @@
   "keywords": [
     "gruntplugin"
   ],
-  "main": "tasks/unsilence.js",
+  "main": "tasks/attract.js",
   "engines": {
     "node": ">=0.10.0"
   },

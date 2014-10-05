@@ -16,15 +16,12 @@ $font-book: "Roboto-Book", $base-font-family;
 $font-bold: "Roboto-Bold", $base-font-family;
 
 
+
 // Colors -----------------------------------------
 $font-color: #000000;
 $font-alt: #ffffff;
 $brand-prim: #000000;
 
-
-// Limits -----------------------------------------
-$min-width: 1000px;
-$max-width: 1000px;
 
 
 // Breakpoints -----------------------------------------
@@ -33,20 +30,15 @@ $max-width: 1000px;
 $mobile: (max-width 600em/16);
 $gt-mobile: (min-width 601em/16);
 $not-mobile: $gt-mobile;
-
 // For tablets, 'less than' case equates to $mobile (note - 'not' case could be above and below for tablets but rarely needed so omitted)
-// For simplicity, let's assume everything less than desktop is a portable device. */
+// For simplicity, let's assume everything less than desktop is a portable device.
 // Also, assume that a tablet is any portable device that isn't a mobile
 $portable: (max-width 959em/16);
 $tablet: $gt-mobile $portable;
-
 // 'not' case is always less than for desktop (e.g notDesktop equates to ltDesktop)
 $desktop: (min-width 960em/16);
 
-$breakpoints: add-breakpoint(mob , $mobile);
-$breakpoints: add-breakpoint(tab , $tablet);
+
+$breakpoints: add-breakpoint(mob, $mobile);
+$breakpoints: add-breakpoint(tab, $tablet);
 $breakpoints: add-breakpoint(desk, $desktop);
-
-
-// Helpers
-$silent-helpers: true;

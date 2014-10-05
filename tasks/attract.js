@@ -1,5 +1,5 @@
 /*
- * grunt-unsilence
+ * grunt-attract
  *
  *
  * Copyright (c) 2014 Chris Jones
@@ -12,7 +12,7 @@ module.exports = function (grunt) {
 
 	var _ = require('lodash');
 
-	grunt.registerMultiTask('unsilence', 'Amplifying silent placeholders', function ()
+	grunt.registerMultiTask('attract', 'Act on your attributes', function ()
 	{
 		// Ensure required properties are supplied
 		['src', 'dest'].forEach(function(name) {
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
-			filename: 'unsilence',
+			filename: 'attract',
 			stylesheet: 'scss'
 		});
 
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
 			classes = (_.unique(_.flatten(classes)).sort());
 
 			// Generate our variable
-			var output = "$unsilence: (";
+			var output = "$attract: (";
 			_.each(classes, function(thisClass)
 			{
 				output += "\n\t'" + thisClass + "',";
@@ -76,7 +76,7 @@ module.exports = function (grunt) {
 
 			// Generate our mixin
 			// output += "\n\n";
-			// output += "@each $selector in $unsilence {\n";
+			// output += "@each $selector in $attract {\n";
 			// output += "\t.#{$selector} { \n";
 			// output += "\t\t@extend %#{$selector} !optional;\n";
 			// output += "\t}\n";

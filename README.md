@@ -1,6 +1,6 @@
-# grunt-unsilence
+# grunt-attract
 
-> Amplify silent SASS placeholders
+> Act on your attributes
 
 ## Getting Started
 This plugin requires Grunt.
@@ -8,23 +8,23 @@ This plugin requires Grunt.
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-unsilence --save-dev
+npm install grunt-attract --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-unsilence');
+grunt.loadNpmTasks('grunt-attract');
 ```
 
-## The "unsilence" task
+## The "attract" task
 
 ### Overview
-In your project's Gruntfile, add a section named `unsilence` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `attract` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  unsilence: {
+  attract: {
     options: {
       // Task-specific options go here.
     },
@@ -56,7 +56,7 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  unsilence: {
+  attract: {
     options: {},
     files: {
       'dest/default_options': ['src/testing', 'src/123'],
@@ -70,7 +70,7 @@ In this example, custom options are used to do something else with whatever else
 
 ```js
 grunt.initConfig({
-  unsilence: {
+  attract: {
     options: {
       separator: ': ',
       punctuation: ' !!!',

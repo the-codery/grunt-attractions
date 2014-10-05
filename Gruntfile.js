@@ -1,5 +1,5 @@
 /*
- * grunt-unsilence
+ * grunt-attract
  *
  *
  * Copyright (c) 2014 Chris Jones
@@ -40,7 +40,7 @@ module.exports = function (grunt) {
 		},
 
 		// Configuration to be run (and then tested).
-		unsilence: {
+		attract: {
 			default_options: {
 				src: '<%= proj.test %>/html/*.html',
 				dest: '<%= proj.test %>/scss/test',
@@ -51,7 +51,7 @@ module.exports = function (grunt) {
 				src: '<%= proj.test %>/html/*.html',
 				dest: '<%= proj.test %>/scss/test',
 				options: {
-					filename: 'custom_unsilence',
+					filename: 'custom_attract',
 					stylesheet: 'scss'
 				}
 			}
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 
 	// Whenever the "test" task is run, first clean the dir, then run this
 	// plugin's task(s), then test the result.
-	grunt.registerTask('test', ['clean', 'unsilence', 'compass', 'nodeunit']);
+	grunt.registerTask('test', ['clean', 'attract', 'compass', 'nodeunit']);
 
 	// By default, lint and run all tests.
 	grunt.registerTask('default', ['jshint', 'test']);
