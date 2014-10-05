@@ -1,0 +1,38 @@
+// ----
+// Cross-Media Query @extend Directives in Sass
+//
+// http://sassmeister.com/gist/fb07514394e716cd159d
+// in response to: http://www.sitepoint.com/cross-media-query-extend-sass/
+// ----
+
+
+// Breakpoint wrapper to handle context when extending
+$_breakpoint-context-key-at-render-time:'';
+
+@mixin media($breakpointkeys...)
+{
+	@each $key, $value in $breakpointkeys
+	{
+		$_breakpoint-context-key-at-render-time:$key !global;
+		@include respond-to($key, $no-query:false){ @content; };
+		$_breakpoint-context-key-at-render-time:''	 !global;
+	}
+};
+
+// Extend mixins
+@mixin extends()
+{
+	@content;
+	@each $key, $value in $breakpoints
+	{
+		@include media($key){ @content; }
+	}
+}
+@mixin define-extend($name)
+{
+	%#{$_breakpoint-context-key-at-render-time + $name}{ @content; }
+}
+@mixin extend($name)
+{
+	@extend %#{$_breakpoint-context-key-at-render-time + $name} !optional;
+}

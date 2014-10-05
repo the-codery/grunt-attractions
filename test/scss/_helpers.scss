@@ -1,0 +1,259 @@
+/**
+ * Helper classes to add additional properties
+ * to modules and elements.
+ */
+
+
+@import "cross-media-extends";
+
+@include extends()
+{
+	// Display
+	@include define-extend(db) { display: block; }
+	@include define-extend(dib) { display: inline-block; }
+	@include define-extend(di) { display: inline; }
+	@include define-extend(no-d) { display: none; }
+
+
+	// Oveflow
+	@include define-extend(ova) {overflow: auto;}
+	@include define-extend(ovh) {overflow: hidden;}
+	@include define-extend(ovs) {overflow: scroll;}
+
+
+	// Alignments
+	@include define-extend(hl) { text-align: left; }
+	@include define-extend(hr) { text-align: right; }
+	@include define-extend(hc) { text-align: center; }
+	@include define-extend(vt) { vertical-align: top; }
+	@include define-extend(vm) { vertical-align: middle; }
+	@include define-extend(vb) { vertical-align: bottom; }
+
+
+	// Text Transforms
+	@include define-extend(ttu) { text-transform: uppercase; }
+	@include define-extend(ttl) { text-transform: lowercase; }
+	@include define-extend(no-tt) { text-transform: none; }
+
+
+	// Text Decoration
+	@include define-extend(tdu) { text-decoration: underline; }
+	@include define-extend(no-td) { text-decoration: none; }
+
+
+	// Visibility
+	@include define-extend(vis-hid) { visibility: hidden; }
+	@include define-extend(vis-vis) { visibility: visible; }
+	@include define-extend(vis-clip) {
+		border: 0;
+		clip: rect(0 0 0 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+	}
+
+
+	// Font Helpers
+
+	@for $i from 0 through 100
+	{
+		@include define-extend(font--s#{$i}) { @include font-size($i); }
+	}
+
+	@for $i from 0 through 30
+	{
+		$lh: ($i / 10);
+		@include define-extend(font--lh#{$i}) { line-height: $lh; }
+	}
+
+	@if variable-exists(font-light) {
+		@include define-extend(font--light) { font-family: $font-light; }
+	}
+	@if variable-exists(font-reg) {
+		@include define-extend(font--reg) { font-family: $font-reg; }
+	}
+	@if variable-exists(font-med) {
+		@include define-extend(font--med) { font-family: $font-med; }
+	}
+	@if variable-exists(font-book) {
+		@include define-extend(font--book) { font-family: $font-book; }
+	}
+	@if variable-exists(font-bold) {
+		@include define-extend(font--bold) { font-family: $font-bold; }
+	}
+
+	@if variable-exists(font-color) {
+		@include define-extend(font--color) { color: $font-color; }
+	}
+	@if variable-exists(font-alt) {
+		@include define-extend(font--alt) { color: $font-alt; }
+	}
+	@if variable-exists(brand-prim) {
+		@include define-extend(font--prim) { color: $brand-prim; }
+	}
+
+	@include define-extend(font--inherit)
+	{
+		font-family: inherit;
+		font-weight: inherit;
+		color: inherit;
+	}
+
+	@include define-extend(font--nowrap)
+	{
+		white-space: nowrap;
+	}
+
+
+	// Link Helpers
+	@include define-extend(link--unstyled)
+	{
+		@include all-link-states()
+		{
+			@include extend(font--inherit);
+			@include extend(no-td);
+	 	}
+	}
+
+
+	// Browser-based (requires Modernizr)
+	@include define-extend(nojs--hidden)
+	{
+		html.no-js &
+		{
+			@include extend(no-d);
+		}
+	}
+
+}
+
+
+
+
+/**
+ * Helper Builder - builds classes that can be added
+ * additional properties to modules and elements.
+ */
+
+
+// Actually one-dimensional lists - just laid out like multi-dimensional lists
+$helper-shorthands: (
+	't',			'top',
+	'b',			'bottom',
+	'l',			'left',
+	'r',			'right',
+	'w',			'width',
+	'min-w',	'min-width',
+	'max-w',	'max-width',
+	'h',			'height',
+	'min-h',	'min-height',
+	'max-h',	'max-height',
+	'm',			'margin',
+	'p',			'padding'
+);
+
+$helper-units: (
+	'x',	'px',
+	'p',	'%',
+	'e',	'em',
+	'r',	'rem',
+	'w',	'vw',
+	'h',	'vh'
+);
+
+// Get breakpoints as a one-dimensional list too
+// (not strictly true but good enough for our needs)
+$helper-breakpoints: null;
+@each $breakpoint in $breakpoints
+{
+	$helper-breakpoints: append($helper-breakpoints, nth($breakpoint, 1));
+	$helper-breakpoints: append($helper-breakpoints, nth($breakpoint, 2));
+}
+
+
+// Generate a style based on selector parts
+@mixin generate-style($selector)
+{
+	$parts: str-split($selector, "--");
+
+	@if(length($parts) > 1)
+	{
+		$block: nth($parts, 1);
+		$block-index: index($helper-shorthands, $block);
+
+		@if($block-index)
+		{
+			$modifier: nth($parts, 2);
+			$modifier-length: length($modifier);
+			$modifier-unit: str_slice($modifier, $modifier-length - 1);
+			$modifier-index: index($helper-units, $modifier-unit);
+
+			@if(not($modifier-index))
+			{
+				$modifier-unit: 'x';
+				$modifier-index: index($helper-units, $modifier-unit);
+			}
+			@else
+			{
+				$modifier: str_slice($modifier, $modifier-length - 1);
+			}
+
+			#{nth($helper-shorthands, $block-index + 1)}: #{$modifier}#{nth($helper-units, $modifier-index + 1)};
+		}
+	}
+}
+
+
+// Build or Extend a class
+@mixin build-extend-selector($selector)
+{
+	$parts: str-split($selector, "--");
+	$block: nth($parts, 1);
+	$block-index: index($helper-shorthands, $block);
+
+	@if $block-index
+	{
+		@include generate-style($selector);
+	}
+	@else
+	{
+//		needToExtend: #{$selector};
+		@include extend(#{$selector});
+	}
+}
+
+
+// Genereate a helper based on the selector parts
+@mixin add-helper($selector)
+{
+	$parts: str-split($selector, "--");
+	$len: length($parts);
+	$breakpoint-test: nth($parts, $len);
+	$breakpoint-index: index($helper-breakpoints, $breakpoint-test);
+
+	@if $breakpoint-index
+	{
+		@include media(nth($helper-breakpoints, $breakpoint-index))
+		{
+			$new-selector: str_slice($selector, 0, str_length($selector) - str_length($breakpoint-test) - 2);
+			@include build-extend-selector($new-selector);
+		}
+	}
+	@else
+	{
+		@include build-extend-selector($selector);
+	}
+}
+
+
+// Use the classes generated by unsilence
+@each $selector in $unsilence{
+	.#{$selector} {
+		@include add-helper($selector);
+	}
+}
+
+

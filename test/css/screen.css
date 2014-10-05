@@ -1,0 +1,20 @@
+/** These rules serve mainly as extensions (SASS context) sub definitions. */
+/** Helper classes to add additional properties to modules and elements. */
+/* line 33, ../scss/_cross-media-extends.scss */
+.link--unstyled, .link--unstyled:hover, .link--unstyled:focus, .link--unstyled:visited, .link--unstyled:active { text-decoration: none; }
+
+/* line 33, ../scss/_cross-media-extends.scss */
+.font--s15 { font-size: 15px; font-size: 1.5rem; }
+
+/* line 33, ../scss/_cross-media-extends.scss */
+.link--unstyled, .link--unstyled:hover, .link--unstyled:focus, .link--unstyled:visited, .link--unstyled:active { font-family: inherit; font-weight: inherit; color: inherit; }
+
+@media (max-width: 37.5em) { /* line 33, ../scss/_cross-media-extends.scss */
+  .font--s12--mob { font-size: 12px; font-size: 1.2rem; } }
+@media (min-width: 37.5625em) and (max-width: 59.9375em) { /* line 33, ../scss/_cross-media-extends.scss */
+  .font--s14--tab { font-size: 14px; font-size: 1.4rem; } }
+@media (min-width: 60em) { /* line 33, ../scss/_cross-media-extends.scss */
+  .font--s16--desk { font-size: 16px; font-size: 1.6rem; } }
+/** Helper Builder - builds classes that can be added additional properties to modules and elements. */
+@media (min-width: 60em) { /* line 254, ../scss/_helpers.scss */
+  .max-w--800--desk { max-width: 800px; } }

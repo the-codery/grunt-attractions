@@ -1,0 +1,39 @@
+/**
+ * These rules serve mainly as extensions (SASS context) sub definitions.
+ */
+
+
+// Typography
+@mixin font-size($font_size: 16)
+{
+	$rem: ($font_size / 10);
+	font-size: $font_size * 1px;
+	font-size: #{$rem}rem;
+}
+
+@mixin all-link-states()
+{
+	&, &:hover, &:focus, &:visited, &:active
+	{
+		@content;
+	}
+}
+
+
+// Fullscreen Mode
+@mixin fullscreen()
+{
+	&:-webkit-full-screen { @content; }
+	&:-moz-full-screen { @content; }
+	&:-ms-fullscreen { @content; }
+	&:fullscreen { @content; }
+}
+
+
+// Lists
+@mixin unstyled-list()
+{
+	margin: 0;
+	list-style: none;
+	padding: 0;
+}
