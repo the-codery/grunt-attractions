@@ -1,5 +1,5 @@
 /*
- * grunt-attract
+ * grunt-attractions
  *
  *
  * Copyright (c) 2014 Chris Jones
@@ -34,25 +34,64 @@ module.exports = function (grunt) {
 			}
 		},
 
+
 		// Before generating any new files, remove any previously-created files.
 		clean: {
 			tests: ['<%= proj.temp %>', '<%= compass.options.cssDir %>']
 		},
 
+
 		// Configuration to be run (and then tested).
 		attract: {
-			default_options: {
+			options:
+			{
+			},
+			defaults: {
 				src: '<%= proj.test %>/html/*.html',
-				dest: '<%= proj.test %>/scss/test',
+				dest: '<%= proj.test %>/scss/attract',
 				options: {
 				}
 			},
-			custom_options: {
+			withBase: {
 				src: '<%= proj.test %>/html/*.html',
-				dest: '<%= proj.test %>/scss/test',
+				dest: '<%= proj.test %>/scss/attract',
 				options: {
-					filename: 'custom_attract',
-					stylesheet: 'scss'
+					httpBase: 'http://grunt-attractions.dev',
+					filename: '_attract_WithBase',
+					extension: 'scss'
+				}
+			},
+			urls: {
+				dest: '<%= proj.test %>/scss/attract',
+				options: {
+					urls: [
+						'http://www.google.com'
+					],
+					filename: '_attract_Urls',
+					extension: 'scss'
+				}
+			},
+			filesAndUrls: {
+				src: '<%= proj.test %>/html/*.html',
+				dest: '<%= proj.test %>/scss/attract',
+				options: {
+					urls: [
+						'http://www.google.com'
+					],
+					filename: '_attract_FilesAndURLs',
+					extension: 'scss'
+				}
+			},
+			baseAndUrls: {
+				src: '<%= proj.test %>/html/*.html',
+				dest: '<%= proj.test %>/scss/attract',
+				options: {
+					urls: [
+						'http://www.google.com'
+					],
+					httpBase: 'http://grunt-attractions.dev',
+					filename: '_attract_BaseAndURLs',
+					extension: 'scss'
 				}
 			}
 		},

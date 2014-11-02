@@ -4,30 +4,33 @@
  */
 
 
-@import "cross-media-extends";
-
-@include extends()
+@include cross-media-extends()
 {
+	// Position
+	@include define-extend(pr) { position: relative; }
+	@include define-extend(pa) { position: absolute; }
+	@include define-extend(ps) { position: static; }
+	@include define-extend(pf) { position: fixed; }
+
+
 	// Display
 	@include define-extend(db) { display: block; }
 	@include define-extend(dib) { display: inline-block; }
 	@include define-extend(di) { display: inline; }
+	@include define-extend(dt) { display: table; }
+	@include define-extend(dtc) { display: table-cell; }
+	@include define-extend(df) { display: flex; }
 	@include define-extend(no-d) { display: none; }
+
+		// 	- aliases
+		@include define-extend(hide) { @include extend(no-d); }
+		@include define-extend(show) { @include extend(db); }
 
 
 	// Oveflow
 	@include define-extend(ova) {overflow: auto;}
 	@include define-extend(ovh) {overflow: hidden;}
 	@include define-extend(ovs) {overflow: scroll;}
-
-
-	// Alignments
-	@include define-extend(hl) { text-align: left; }
-	@include define-extend(hr) { text-align: right; }
-	@include define-extend(hc) { text-align: center; }
-	@include define-extend(vt) { vertical-align: top; }
-	@include define-extend(vm) { vertical-align: middle; }
-	@include define-extend(vb) { vertical-align: bottom; }
 
 
 	// Text Transforms
@@ -56,17 +59,28 @@
 	}
 
 
-	// Font Helpers
+	// Background Images
+	@include define-extend(bg-fill)
+	{
+		background-size: cover;
+		background-position: center center;
+	}
+	@include define-extend(bg-lt) { background-position: left top; }
+	@include define-extend(bg-lc) { background-position: left center; }
+	@include define-extend(bg-lb) { background-position: left right; }
+	@include define-extend(bg-ct) { background-position: center top; }
+	@include define-extend(bg-cc) { background-position: center center; }
+	@include define-extend(bg-cb) { background-position: center bottom; }
+	@include define-extend(bg-rt) { background-position: right top; }
+	@include define-extend(bg-rc) { background-position: right center; }
+	@include define-extend(bg-rb) { background-position: right bottom; }
 
+
+
+	// Font Helpers
 	@for $i from 0 through 100
 	{
-		@include define-extend(font--s#{$i}) { @include font-size($i); }
-	}
-
-	@for $i from 0 through 30
-	{
-		$lh: ($i / 10);
-		@include define-extend(font--lh#{$i}) { line-height: $lh; }
+		@include define-extend(fs--#{$i}) { @include font-size($i); }
 	}
 
 	@if variable-exists(font-light) {
@@ -120,7 +134,7 @@
 
 
 	// Browser-based (requires Modernizr)
-	@include define-extend(nojs--hidden)
+	@include define-extend(hide--no-js)
 	{
 		html.no-js &
 		{
@@ -128,128 +142,143 @@
 		}
 	}
 
-}
 
+	// Links
+	@include define-extend(unstyled-link)
+	{
+		@include all-link-states()
+		{
+		  color: inherit;
+		  text-decoration: none;
+	 	}
+	}
+	@include define-extend(unstyled-links)
+	{
+		a { @include _(unstyled-link); }
+	}
+
+
+	// List helper
+	// @extenders
+	@include define-extend(unstyled-list) {
+	  @include unstyled-list;
+	}
+	@include define-extend(unstyled-lists)
+	{
+		ul, ol { @include _(unstyled-list); }
+	}
+
+
+	// For clearing floats like a boss h5bp.com/q
+	// @extenders
+	@include define-extend(clearfix) {
+		*zoom: 1;
+		.lt-ie9 & { overflow: hidden; }
+		&:before,
+		&:after {
+			content: "";
+			display: table;
+		}
+		&:after {
+			clear: both;
+		}
+	}
+
+	// Alignments
+	@include define-extend(fl) { float: left; }
+	@include define-extend(fr) { float: right; }
+	@include define-extend(no-f) { float: none; }
+
+	@include define-extend(hl) { text-align: left; }
+	@include define-extend(hr) { text-align: right; }
+	@include define-extend(hc) { text-align: center; }
+	@include define-extend(vt) { vertical-align: top; }
+	@include define-extend(vm) { vertical-align: middle; }
+	@include define-extend(vb) { vertical-align: bottom; }
+	@include define-extend(fxs) { align-items: flex-start; }
+	@include define-extend(fxc) { align-items: center; }
+	@include define-extend(fxe) { align-items: flex-end; }
+
+	@include define-extend(block-center)
+	{
+		display: block;
+		margin: {left: auto; right: auto;};
+	}
+
+	@include define-extend(block-right)
+	{
+		display: block;
+		margin: {left: auto; right: 0;};
+	}
+
+	@include define-extend(absolute-center)
+	{
+		position: absolute;
+		left: 0;
+		right: 0;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	@include define-extend(vertical-center)
+	{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-around;
+
+		// This fallback requires an internal wrapper div
+		html.no-flexbox.no-flexboxlegacy &
+		{
+			display: table;
+			width: 100%;
+
+			& > *
+			{
+				display: table-cell;
+				vertical-align: middle;
+			}
+		}
+	}
+
+
+	// Image Helper
+	@include define-extend(block-img)
+	{
+		display: block;
+		max-width: 100%;
+	}
+
+
+	// Common Effects
+	@include define-extend(overlay)
+	{
+		content: "";
+		position: absolute;
+		display: block;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+
+	// Formatting
+	@include define-extend(ellipsis)
+	{
+	  white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	}
+
+}
 
 
 
 /**
- * Helper Builder - builds classes that can be added
- * additional properties to modules and elements.
+ * Helper Builder based on grunt-attractions
  */
 
-
-// Actually one-dimensional lists - just laid out like multi-dimensional lists
-$helper-shorthands: (
-	't',			'top',
-	'b',			'bottom',
-	'l',			'left',
-	'r',			'right',
-	'w',			'width',
-	'min-w',	'min-width',
-	'max-w',	'max-width',
-	'h',			'height',
-	'min-h',	'min-height',
-	'max-h',	'max-height',
-	'm',			'margin',
-	'p',			'padding'
-);
-
-$helper-units: (
-	'x',	'px',
-	'p',	'%',
-	'e',	'em',
-	'r',	'rem',
-	'w',	'vw',
-	'h',	'vh'
-);
-
-// Get breakpoints as a one-dimensional list too
-// (not strictly true but good enough for our needs)
-$helper-breakpoints: null;
-@each $breakpoint in $breakpoints
-{
-	$helper-breakpoints: append($helper-breakpoints, nth($breakpoint, 1));
-	$helper-breakpoints: append($helper-breakpoints, nth($breakpoint, 2));
-}
-
-
-// Generate a style based on selector parts
-@mixin generate-style($selector)
-{
-	$parts: str-split($selector, "--");
-
-	@if(length($parts) > 1)
-	{
-		$block: nth($parts, 1);
-		$block-index: index($helper-shorthands, $block);
-
-		@if($block-index)
-		{
-			$modifier: nth($parts, 2);
-			$modifier-length: length($modifier);
-			$modifier-unit: str_slice($modifier, $modifier-length - 1);
-			$modifier-index: index($helper-units, $modifier-unit);
-
-			@if(not($modifier-index))
-			{
-				$modifier-unit: 'x';
-				$modifier-index: index($helper-units, $modifier-unit);
-			}
-			@else
-			{
-				$modifier: str_slice($modifier, $modifier-length - 1);
-			}
-
-			#{nth($helper-shorthands, $block-index + 1)}: #{$modifier}#{nth($helper-units, $modifier-index + 1)};
-		}
-	}
-}
-
-
-// Build or Extend a class
-@mixin build-extend-selector($selector)
-{
-	$parts: str-split($selector, "--");
-	$block: nth($parts, 1);
-	$block-index: index($helper-shorthands, $block);
-
-	@if $block-index
-	{
-		@include generate-style($selector);
-	}
-	@else
-	{
-//		needToExtend: #{$selector};
-		@include extend(#{$selector});
-	}
-}
-
-
-// Genereate a helper based on the selector parts
-@mixin add-helper($selector)
-{
-	$parts: str-split($selector, "--");
-	$len: length($parts);
-	$breakpoint-test: nth($parts, $len);
-	$breakpoint-index: index($helper-breakpoints, $breakpoint-test);
-
-	@if $breakpoint-index
-	{
-		@include media(nth($helper-breakpoints, $breakpoint-index))
-		{
-			$new-selector: str_slice($selector, 0, str_length($selector) - str_length($breakpoint-test) - 2);
-			@include build-extend-selector($new-selector);
-		}
-	}
-	@else
-	{
-		@include build-extend-selector($selector);
-	}
-}
-
-
-// Use the classes generated by attract
 @each $selector in $attract{
 	.#{$selector} {
 		@include add-helper($selector);

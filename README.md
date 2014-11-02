@@ -1,6 +1,6 @@
-# grunt-attract
+# grunt-attractions
 
-> Act on your attributes
+> Attribute based actions
 
 ## Getting Started
 This plugin requires Grunt.
@@ -8,13 +8,13 @@ This plugin requires Grunt.
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-attract --save-dev
+npm install grunt-attractions --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-attract');
+grunt.loadNpmTasks('grunt-attractions');
 ```
 
 ## The "attract" task
@@ -25,68 +25,57 @@ In your project's Gruntfile, add a section named `attract` to the data object pa
 ```js
 grunt.initConfig({
   attract: {
+    src: ['index.html', 'view/*.html'],
+    dest: 'scss/utilities',
     options: {
       // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+    }
   },
 })
 ```
 
 ### Options
 
-#### options.separator
+#### src
+Type: `String|Array`
+
+This defines which files will be read to search for attribute values.
+
+#### dest
 Type: `String`
-Default value: `',  '`
 
-A string value that is used to do something with whatever.
+Output file path.
 
-#### options.punctuation
+#### options.filename
 Type: `String`
-Default value: `'.'`
+Default value: `'attract'`
 
-A string value that is used to do something else with whatever else.
+A string value specifying the output filename.
 
-### Usage Examples
+#### options.extension
+Type: `String`
+Default value: `'scss'`
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+A string value specifying the output filename.
 
-```js
-grunt.initConfig({
-  attract: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
+## The Problem
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+The task isn't limited to solving a particular problem. In fact, it's a generic approach to solving several. Let's take CSS, and SASS in particular as an example:
 
-```js
-grunt.initConfig({
-  attract: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+
+The task gives access to your app's attribute values at build time. The task itself is very simple. It's how you act on your attributes that's powerful.
+
+## Maintainers
+- [@thisischrisj](http://twitter.com/thisischrisj)
 
 ## Release History
-_(Nothing yet)_
+Date | Release | Notes
+--- | --- | ---
+2014-10-12 | v0.1.0 | Initial release
+
+## Roadmap
+- Incorporate PhantomJS for URL-based src files. Useful for dynamically created attribute values (JavaScript, PHP...)
 
 ## License
 Copyright (c) 2014 Chris Jones. Licensed under the MIT license.

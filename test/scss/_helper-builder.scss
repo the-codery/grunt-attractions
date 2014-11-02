@@ -1,0 +1,186 @@
+/**
+ * Helper Builder - builds classes that can be added
+ * additional properties to modules and elements.
+ */
+
+
+// Actually one-dimensional lists - just laid out like multi-dimensional lists
+$helper-shorthands: (
+	't',			'top',
+	'b',			'bottom',
+	'l',			'left',
+	'r',			'right',
+	'w',			'width',
+	'min-w',	'min-width',
+	'max-w',	'max-width',
+	'h',			'height',
+	'min-h',	'min-height',
+	'max-h',	'max-height',
+	'm',			'margin',
+	'mt',			'margin-top',
+	'mb',			'margin-bottom',
+	'ml',			'margin-left',
+	'mr',			'margin-right',
+	'p',			'padding',
+	'pt',			'padding-top',
+	'pb',			'padding-bottom',
+	'pl',			'padding-left',
+	'pr',			'padding-right',
+	'lh',			'line-height',
+//	'fs',			'font-size',						// Use font-size mixin instead
+	'fw',			'font-weight',
+	'fc',			'color',
+	'bgc',		'background-color',
+	'bo',			'border',									// 'b' already used
+	'bw',			'border-width'
+	'bwt',		'border-width-top',
+	'bwb',		'border-width-bottom',
+	'bwl',		'border-width-left',
+	'bwr',		'border-width-right',
+	'bc',			'border-color',
+	'bct',		'border-color-top',
+	'bcb',		'border-color-bottom',
+	'bcl',		'border-color-left',
+	'bcr',		'border-color-right',
+	'br',			'border-radius',
+	'bs',			'border-spacing',
+	'fxg',		'flex-grow',
+	'fxs',		'flex-shrink',
+	'fxo',		'order'
+);
+
+$helper-units: (
+	'n',  '',				// No units (e.g line-height, z-index, flex-box order, flex-stretch, colors)
+	'x',	'px',
+	'p',	'%',
+	'e',	'em',
+	'r',	'rem',
+	'w',	'vw',
+	'h',	'vh'
+);
+
+// Get breakpoints as a one-dimensional list too
+// (not strictly true but good enough for our needs)
+$helper-breakpoints: null;
+@each $breakpoint in $breakpoints
+{
+	$helper-breakpoints: append($helper-breakpoints, nth($breakpoint, 1));
+	$helper-breakpoints: append($helper-breakpoints, nth($breakpoint, 2));
+}
+
+
+// Split a value/unit shorthand into it's full expression
+@function generate-style-value($shorthand)
+{
+	$shorthand-length: str_length($shorthand);
+	$shorthand-unit: str_slice($shorthand, $shorthand-length);
+	$shorthand-index: index($helper-units, $shorthand-unit);
+
+	@if(not($shorthand-index))
+	{
+		$shorthand-unit: 'x';
+		$shorthand-index: index($helper-units, $shorthand-unit);
+	}
+	@else
+	{
+		$shorthand: str_slice($shorthand, 1, $shorthand-length - 1);
+	}
+	$unit: #{nth($helper-units, $shorthand-index + 1)};
+
+	@return $shorthand + $unit;
+}
+
+
+// Generate a style based on selector parts
+@mixin generate-style($selector)
+{
+	$parts: str-split($selector, "--");
+
+	@if(length($parts) > 1)
+	{
+		$block: nth($parts, 1);
+		$block-index: index($helper-shorthands, $block);
+
+		@if($block-index)
+		{
+			$modifier: nth($parts, 2);
+			$modifier-index: 1;		// Default to first modifier part
+			$value-str: '';
+
+			$is-color: str-index(#{nth($helper-shorthands, $block-index + 1)}, 'color');
+			@if($is-color > 0)
+			{
+				$value-str: '#' + $modifier;
+			}
+			@else
+			{
+				$values: str-split($modifier, "_");
+				@if ($values)
+				{
+					@each $value in $values
+					{
+						$value-str: $value-str + ' ' + generate-style-value($value);
+					}
+				}
+				@else
+				{
+					$value-str: generate-style-value($modifier);
+				}
+			}
+
+			$important: if(length($parts) > 2 and nth($parts, 3) == 'imp', ' !important', '');
+
+			#{nth($helper-shorthands, $block-index + 1)}:#{$value-str}#{$important};
+		}
+	}
+}
+
+
+// Build or Extend a class
+@mixin build-extend-selector($selector)
+{
+	$parts: str-split($selector, "--");
+	$block: nth($parts, 1);
+	$block-index: index($helper-shorthands, $block);
+
+	@if $block-index
+	{
+		@include generate-style($selector);
+	}
+	@else
+	{
+//		needToExtend: #{$selector};
+		@include extend(#{$selector});
+	}
+}
+
+
+// Genereate a helper based on the selector parts
+@mixin add-helper($selector)
+{
+	$parts: str-split($selector, "--");
+	$len: length($parts);
+	$breakpoint-test: nth($parts, $len);
+	$breakpoint-index: index($helper-breakpoints, $breakpoint-test);
+
+	@if $breakpoint-index
+	{
+		@include media(nth($helper-breakpoints, $breakpoint-index))
+		{
+			$new-selector: str_slice($selector, 0, str_length($selector) - str_length($breakpoint-test) - 2);
+			@include build-extend-selector($new-selector);
+		}
+	}
+	@else
+	{
+		@include build-extend-selector($selector);
+	}
+}
+
+
+// Shorthand alias for add helper
+@mixin _($name)
+{
+	@include add-helper($name);
+}
+

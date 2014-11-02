@@ -1,7 +1,7 @@
 {
-  "name": "grunt-attract",
-  "version": "0.0.1",
-  "description": "Act on your attributes",
+  "name": "grunt-attractions",
+  "version": "0.1.0",
+  "description": "Attribute actions",
   "repository": "",
   "author": {
     "name": "Chris Jones",
@@ -17,10 +17,10 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "grunt": "0.4.2",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-contrib-nodeunit": "~0.3.0",
-    "grunt": "0.4.2",
     "jshint-stylish": "~0.1.5",
     "load-grunt-tasks": "~0.3.0",
     "grunt-contrib-compass": "^1.0.1"
@@ -29,6 +29,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "grunt-lib-phantomjs": "^0.6.0"
   }
 }

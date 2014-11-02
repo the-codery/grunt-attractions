@@ -19,8 +19,8 @@ $_breakpoint-context-key-at-render-time:'';
 	}
 };
 
-// Extend mixins
-@mixin extends()
+// Wrapper mixin to put your 'define-extends' inside
+@mixin cross-media-extends()
 {
 	@content;
 	@each $key, $value in $breakpoints
@@ -28,11 +28,17 @@ $_breakpoint-context-key-at-render-time:'';
 		@include media($key){ @content; }
 	}
 }
+
+// Define an extend
 @mixin define-extend($name)
 {
-	%#{$_breakpoint-context-key-at-render-time + $name}{ @content; }
+	$mod: if($_breakpoint-context-key-at-render-time == '', '', '--' + $_breakpoint-context-key-at-render-time);
+	%#{$name + $mod}{ @content; }
 }
+
+// Call an extend
 @mixin extend($name)
 {
-	@extend %#{$_breakpoint-context-key-at-render-time + $name} !optional;
+	$mod: if($_breakpoint-context-key-at-render-time == '', '', '--' + $_breakpoint-context-key-at-render-time);
+	@extend %#{$name + $mod} !optional;
 }
