@@ -1,0 +1,35 @@
+/** These rules serve mainly as extensions (SASS context) sub definitions. */
+/** Helper Builder - builds classes that can be added additional properties to modules and elements. */
+/** Helper classes to add additional properties to modules and elements. */
+/* line 36, ../scss/_cross-media-extends.scss */
+.block-center { display: block; margin-left: auto; margin-right: auto; }
+
+@media (max-width: 30em) { /* line 36, ../scss/_cross-media-extends.scss */
+  .fs--12--mob { font-size: 12px; font-size: 1.2rem; }
+  /* line 36, ../scss/_cross-media-extends.scss */
+  .hc--mob { text-align: center; } }
+@media (min-width: 30.0625em) and (max-width: 64em) { /* line 36, ../scss/_cross-media-extends.scss */
+  .fs--14--tab { font-size: 14px; font-size: 1.4rem; } }
+@media (min-width: 64.0625em) { /* line 36, ../scss/_cross-media-extends.scss */
+  .fs--16--desk { font-size: 16px; font-size: 1.6rem; } }
+/** Helper Builder based on grunt-attractions */
+@media (max-width: 30em) { /* line 246, ../scss/_helpers.scss */
+  .bgc--CCCCCC--mob { background-color: #CCCCCC; } }
+
+@media (min-width: 30.0625em) and (max-width: 64em) { /* line 246, ../scss/_helpers.scss */
+  .bgc--DDDDDD--tab { background-color: #DDDDDD; } }
+
+@media (min-width: 64.0625em) { /* line 246, ../scss/_helpers.scss */
+  .bgc--EEEEEE--desk { background-color: #EEEEEE; } }
+
+@media (min-width: 64.0625em) { /* line 246, ../scss/_helpers.scss */
+  .max-w--1200--desk { max-width: 1200px; } }
+
+/* line 246, ../scss/_helpers.scss */
+.mt--0 { margin-top: 0px; }
+
+@media (max-width: 30em) { /* line 246, ../scss/_helpers.scss */
+  .p--20--imp--mob { padding: 20px !important; } }
+
+/* line 246, ../scss/_helpers.scss */
+.p--40 { padding: 40px; }

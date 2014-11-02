@@ -27,11 +27,20 @@ exports.attract = {
     // setup here if necessary
     done();
   },
-  default_options: function (test) {
+  Files: function (test) {
     test.expect(1);
 
-    var actual = grunt.file.read('test/css/screen.css');
-    var expected = grunt.file.read('test/expected/screen.css');
+    var actual = grunt.file.read('test/result/_attract_Files.scss');
+    var expected = grunt.file.read('test/expected/_attract_Files.scss');
+    test.equal(actual, expected, 'Files should be equal');
+
+    test.done();
+  },
+  Base: function (test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('test/result/_attract_Base.scss');
+    var expected = grunt.file.read('test/expected/_attract_Base.scss');
     test.equal(actual, expected, 'Files should be equal');
 
     test.done();

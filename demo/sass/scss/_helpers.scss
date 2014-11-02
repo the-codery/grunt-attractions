@@ -23,8 +23,8 @@
 	@include define-extend(no-d) { display: none; }
 
 		// 	- aliases
-		@include define-extend(hide) { @include extend(no-d); }
-		@include define-extend(show) { @include extend(db); }
+		@include define-extend(hide) { @include _(no-d); }
+		@include define-extend(show) { @include _(db); }
 
 
 	// Oveflow
@@ -83,32 +83,6 @@
 		@include define-extend(fs--#{$i}) { @include font-size($i); }
 	}
 
-	@if variable-exists(font-light) {
-		@include define-extend(font--light) { font-family: $font-light; }
-	}
-	@if variable-exists(font-reg) {
-		@include define-extend(font--reg) { font-family: $font-reg; }
-	}
-	@if variable-exists(font-med) {
-		@include define-extend(font--med) { font-family: $font-med; }
-	}
-	@if variable-exists(font-book) {
-		@include define-extend(font--book) { font-family: $font-book; }
-	}
-	@if variable-exists(font-bold) {
-		@include define-extend(font--bold) { font-family: $font-bold; }
-	}
-
-	@if variable-exists(font-color) {
-		@include define-extend(font--color) { color: $font-color; }
-	}
-	@if variable-exists(font-alt) {
-		@include define-extend(font--alt) { color: $font-alt; }
-	}
-	@if variable-exists(brand-prim) {
-		@include define-extend(font--prim) { color: $brand-prim; }
-	}
-
 	@include define-extend(font--inherit)
 	{
 		font-family: inherit;
@@ -127,8 +101,8 @@
 	{
 		@include all-link-states()
 		{
-			@include extend(font--inherit);
-			@include extend(no-td);
+			@include _(font--inherit);
+			@include _(no-td);
 	 	}
 	}
 
@@ -138,31 +112,20 @@
 	{
 		html.no-js &
 		{
-			@include extend(no-d);
+			@include _(no-d);
 		}
-	}
-
-
-	// Links
-	@include define-extend(unstyled-link)
-	{
-		@include all-link-states()
-		{
-		  color: inherit;
-		  text-decoration: none;
-	 	}
-	}
-	@include define-extend(unstyled-links)
-	{
-		a { @include _(unstyled-link); }
 	}
 
 
 	// List helper
 	// @extenders
-	@include define-extend(unstyled-list) {
-	  @include unstyled-list;
+	@include define-extend(unstyled-list)
+	{
+		margin: 0;
+		list-style: none;
+		padding: 0;
 	}
+
 	@include define-extend(unstyled-lists)
 	{
 		ul, ol { @include _(unstyled-list); }
@@ -281,7 +244,7 @@
 
 @each $selector in $attract{
 	.#{$selector} {
-		@include add-helper($selector);
+		@include _($selector);
 	}
 }
 

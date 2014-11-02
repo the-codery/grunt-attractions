@@ -19,6 +19,16 @@ module.exports = function (grunt) {
 		proj: {
 			temp: '.tmp',
 			test: 'test',
+			demo: 'demo',
+		},
+
+
+		// Before generating any new files, remove any previously-created files.
+		clean: {
+			test: [
+				'<%= proj.temp %>',
+				'<%= proj.test %>/result'
+			]
 		},
 
 
@@ -35,45 +45,46 @@ module.exports = function (grunt) {
 		},
 
 
-		// Before generating any new files, remove any previously-created files.
-		clean: {
-			tests: ['<%= proj.temp %>', '<%= compass.options.cssDir %>']
+		// Start a connect web server for testing
+		connect: {
+			server: {
+			}
 		},
 
 
 		// Configuration to be run (and then tested).
 		attract: {
-			options:
-			{
-			},
-			defaults: {
-				src: '<%= proj.test %>/html/*.html',
-				dest: '<%= proj.test %>/scss/attract',
+
+			// Tests
+			Files: {
+				src: '<%= proj.test %>/src/*.html',
+				dest: '<%= proj.test %>/result',
 				options: {
+					filename: '_attract_Files',
 				}
 			},
-			withBase: {
-				src: '<%= proj.test %>/html/*.html',
-				dest: '<%= proj.test %>/scss/attract',
+			Base: {
+				src: '<%= proj.test %>/src/*.html',
+				dest: '<%= proj.test %>/result',
 				options: {
-					httpBase: 'http://grunt-attractions.dev',
-					filename: '_attract_WithBase',
+					httpBase: 'http://localhost:8000',
+					filename: '_attract_Base',
 					extension: 'scss'
 				}
 			},
-			urls: {
-				dest: '<%= proj.test %>/scss/attract',
+			URLs: {
+				dest: '<%= proj.test %>/result',
 				options: {
 					urls: [
 						'http://www.google.com'
 					],
-					filename: '_attract_Urls',
+					filename: '_attract_URLs',
 					extension: 'scss'
 				}
 			},
-			filesAndUrls: {
-				src: '<%= proj.test %>/html/*.html',
-				dest: '<%= proj.test %>/scss/attract',
+			FilesAndURLs: {
+				src: '<%= proj.test %>/src/*.html',
+				dest: '<%= proj.test %>/result',
 				options: {
 					urls: [
 						'http://www.google.com'
@@ -82,34 +93,41 @@ module.exports = function (grunt) {
 					extension: 'scss'
 				}
 			},
-			baseAndUrls: {
-				src: '<%= proj.test %>/html/*.html',
-				dest: '<%= proj.test %>/scss/attract',
+			BaseAndURLs: {
+				src: '<%= proj.test %>/src/*.html',
+				dest: '<%= proj.test %>/result',
 				options: {
 					urls: [
 						'http://www.google.com'
 					],
-					httpBase: 'http://grunt-attractions.dev',
+					httpBase: 'http://localhost:8000',
 					filename: '_attract_BaseAndURLs',
 					extension: 'scss'
 				}
+			},
+
+			// Demos
+			sass:	{
+				src: '<%= proj.demo %>/sass/*.html',
+				dest: '<%= proj.demo %>/sass/scss',
 			}
 		},
 
 		// Compiles Sass to CSS for tests
 		compass: {
-			options: {
-				sassDir: '<%= proj.test %>/scss',
-				cssDir: '<%= proj.test %>/css',
-				outputStyle: 'compact',
-				require: ['breakpoint', 'sassy-strings']
-			},
-			test: {}
+			demo: {
+				options: {
+					sassDir: '<%= proj.demo %>/sass/scss',
+					cssDir: '<%= proj.demo %>/sass/css',
+					outputStyle: 'compact',
+					require: ['breakpoint', 'sassy-strings']
+				},
+			}
 		},
 
 		// Unit tests.
 		nodeunit: {
-			tests: ['test/*_test.js']
+			tests: ['<%= proj.test %>/*_test.js']
 		}
 
 	});
@@ -119,7 +137,11 @@ module.exports = function (grunt) {
 
 	// Whenever the "test" task is run, first clean the dir, then run this
 	// plugin's task(s), then test the result.
-	grunt.registerTask('test', ['clean', 'attract', 'compass', 'nodeunit']);
+	grunt.registerTask('test', ['clean', 'connect', 'attract', 'nodeunit']);
+
+	// Whenever the "test" task is run, first clean the dir, then run this
+	// plugin's task(s), then test the result.
+	grunt.registerTask('demo', ['clean', 'connect', 'attract', 'compass:demo']);
 
 	// By default, lint and run all tests.
 	grunt.registerTask('default', ['jshint', 'test']);

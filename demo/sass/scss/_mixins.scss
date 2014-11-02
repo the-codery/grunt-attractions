@@ -18,22 +18,3 @@
 		@content;
 	}
 }
-
-
-// Fullscreen Mode
-@mixin fullscreen()
-{
-	&:-webkit-full-screen { @content; }
-	&:-moz-full-screen { @content; }
-	&:-ms-fullscreen { @content; }
-	&:fullscreen { @content; }
-}
-
-
-// Lists
-@mixin unstyled-list()
-{
-	margin: 0;
-	list-style: none;
-	padding: 0;
-}
