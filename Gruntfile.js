@@ -107,7 +107,7 @@ module.exports = function (grunt) {
 			},
 
 			// Demos
-			sass:	{
+			sassDemo:	{
 				src: '<%= proj.demo %>/sass/*.html',
 				dest: '<%= proj.demo %>/sass/scss',
 			}
@@ -141,7 +141,7 @@ module.exports = function (grunt) {
 
 	// Whenever the "test" task is run, first clean the dir, then run this
 	// plugin's task(s), then test the result.
-	grunt.registerTask('demo', ['clean', 'connect', 'attract', 'compass:demo']);
+	grunt.registerTask('demo', ['clean', 'connect', 'attract:sassDemo', 'compass:demo']);
 
 	// By default, lint and run all tests.
 	grunt.registerTask('default', ['jshint', 'test']);

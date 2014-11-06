@@ -71,12 +71,6 @@ module.exports = function (grunt)
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options(
 		{
-			// HTTP base (default: none)
-			httpBase: false,
-			// Use PhantomJS. True if httpBase is set (default: false)
-			usePhantomJS: false,
-			// Manual URLs to process (default: empty set)
-			urls: [],
 			// Output file (default: sass file)
 			filename: '_attract',
 			extension: 'scss',
@@ -85,6 +79,12 @@ module.exports = function (grunt)
 				'class',
 				'data-attract'
 			],
+			// Use PhantomJS. True if httpBase is set (default: false)
+			usePhantomJS: false,
+			// HTTP base (default: none)
+			httpBase: false,
+			// Manual URLs to process (default: empty set)
+			urls: [],
 			// How attributes should be filtered (default: valid class names)
 			termFilter: /^[_a-zA-Z]+[\w\-]*$/,
 			// How to output the terms (default: scss list variable)

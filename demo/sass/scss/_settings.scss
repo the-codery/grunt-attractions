@@ -1,8 +1,8 @@
 
 
 // Breakpoints -----------------------------------------
+// See http://breakpoint-sass.com/
 
-// 'not this' case is always greather than for mobile (e.g notMobile equates to gtMobile)
 $mobile: (max-width 480em/16);
 $tablet: (min-width 481em/16) (max-width 1024em/16);
 $desktop: (min-width 1025em/16);
