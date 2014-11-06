@@ -2,10 +2,10 @@
   "name": "grunt-attractions",
   "version": "0.1.0",
   "description": "Attribute based actions",
-  "repository": "",
+  "repository": "https://github.com/the-codery/grunt-attractions.git",
   "author": {
     "name": "Chris Jones",
-    "email": "",
+    "email": "dev@thecodery.co.uk",
     "url": "twitter.com/thisischrisj"
   },
   "keywords": [
