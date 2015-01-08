@@ -25,11 +25,11 @@ In your project's Gruntfile, add a section named `attract` to the data object pa
 ```js
 grunt.initConfig({
   attract: {
-    src: ['index.html', 'view/*.html'],
-    dest: 'scss/utilities',
-    options: {
-      // Task-specific options go here.
-    }
+	src: ['index.html', 'view/*.html'],
+	dest: 'scss/utilities',
+	options: {
+	  // Task-specific options go here.
+	}
   },
 })
 ```
@@ -105,64 +105,64 @@ Let's take CSS, and SASS in particular as an example. It's not uncommon to have 
 
 We can take this a step further though. How many times have you defined a utility class and then needed a slight variant. For those of you adopting BEM in your stylesheets, you've probably found yourself doing the following to quickly solve the odd layout issue:
 
-    .spaced-under {
-        margin-bottom: 20px;
-    }
+	.spaced-under {
+		margin-bottom: 20px;
+	}
 
-    .spaced-under--small {
-        margin-bottom: 15px;
-    }
+	.spaced-under--small {
+		margin-bottom: 15px;
+	}
 
 Before long, you look back and realise this has grown:
 
-    .spaced-under--smaller {
-        margin-bottom: 10px;
-    }
+	.spaced-under--smaller {
+		margin-bottom: 10px;
+	}
 
-    .spaced-under--tiny {
-        margin-bottom: 5px;
-    }
+	.spaced-under--tiny {
+		margin-bottom: 5px;
+	}
 
-    .spaced-under--micro {
-        margin-bottom: 2px;
-    }
-    
-    ...
+	.spaced-under--micro {
+		margin-bottom: 2px;
+	}
+	
+	...
 
 Or what about:
 
-    .content-block {
-        padding: 20px;
-        background-color: white;
-    }
-    
-    .content-block--tight {
-       padding: 10px;
-    }
-    
-    .content-block--christmas {
-        background-color: red;
-    }
-    
-    .content-block--insert-one-off-campaign-name-here {
-        background-color: #0000CC;
-        color: white;
-    }
-    
-    ...
-    
+	.content-block {
+		padding: 20px;
+		background-color: white;
+	}
+	
+	.content-block--tight {
+	   padding: 10px;
+	}
+	
+	.content-block--christmas {
+		background-color: red;
+	}
+	
+	.content-block--insert-one-off-campaign-name-here {
+		background-color: #0000CC;
+		color: white;
+	}
+	
+	...
+	
 If we can access our classes earlier in the build phase, we can establish naming conventions for our utility classes and dynamically generate the output without even having to define the helper in the first place. Imagine dropping the class `bg--FF0000` on an element and SASS automatically generating the appropiate CSS:
 
-    .bgc--FF0000 {
-        background-color: #FFFFFF;
-    }
-    
+	.bgc--FF0000 {
+		background-color: #FFFFFF;
+	}
+	
 or having adding `mb--20` and getting:
 
-    .mb--20
-    {
-        margin-bottom: 20px;
-    }
+	.mb--20
+	{
+		margin-bottom: 20px;
+	}
 
 Has that one-off campaign ended now? Simply remove the campaign page's src file from the task config and all those dynamically generated utility classes just drop out of your CSS output. Magic!
 
@@ -170,53 +170,53 @@ I don't advocate this over proper semantic class names, but it helps for those s
 
 OK, let's consider another use case. You have a `.hide` class that you use from time to time but you need it for all your breakpoints too:
 
-    .hide {
-        display: none;
-    }
-    
-    @media (max-width: 30em) {
-        .hide--mob {
-            display: none;
-        }
-    }
-    
-    @media (min-width: 30.06253em) and (max-width: 64em) {
-        .hide--tab {
-            display: none;
-        }
-    }
-    
-    ...
+	.hide {
+		display: none;
+	}
+	
+	@media (max-width: 30em) {
+		.hide--mob {
+			display: none;
+		}
+	}
+	
+	@media (min-width: 30.06253em) and (max-width: 64em) {
+		.hide--tab {
+			display: none;
+		}
+	}
+	
+	...
 
 This quickly grows as you apply your breakpoint modifiers to more and more utility functions. More often than not, you define modifiers for all the possible breakpoints too ... just incase you need them further down the road. 
 
 By knowing which are used ahead of your SASS task, you can define them once and, by following a common naming convention, generate all the breakpoint variants at run time - only those that are actually used too. You'll find sample code in the demo folder but, as an example, you could add the following classes to an element:
 
-    <div class="fs--12--mob fs--14--tab fs--16--desk">...</div>
+	<div class="fs--12--mob fs--14--tab fs--16--desk">...</div>
 
 and the following styles will be generated ... without ever explicitly declaring the `fs--xxx` utility class or mixin:
 
-    @media (max-width: 30em) {
-        .fs--12--mob {
-            font-size: 12px;
-            font-size: 1.2rem;
-        }
-    }
-    
-    @media (min-width: 30.06253em) and (max-width: 64em) {
-        .fs--14--mob {
-            font-size: 14px;
-            font-size: 1.4rem;
-        }
-    }
+	@media (max-width: 30em) {
+		.fs--12--mob {
+			font-size: 12px;
+			font-size: 1.2rem;
+		}
+	}
+	
+	@media (min-width: 30.06253em) and (max-width: 64em) {
+		.fs--14--mob {
+			font-size: 14px;
+			font-size: 1.4rem;
+		}
+	}
 
-    @media (min-width: 64.0625em) {
-        .fs--16--mob {
-            font-size: 16px;
-            font-size: 1.6rem;
-        }
-    }
-    
+	@media (min-width: 64.0625em) {
+		.fs--16--mob {
+			font-size: 16px;
+			font-size: 1.6rem;
+		}
+	}
+	
 The minimum amount of output but without the headache of maintaining that internal SASS library.
 
 ### Example: JavaScript
@@ -233,9 +233,9 @@ Currently the demo folder only contains the SASS example discussed above.
 
 To run it:
 
-    bundle install
-    npm install
-    grunt demo
+	bundle install
+	npm install
+	grunt demo
 
 The SCSS folder contains the following files:
  - `_attract.scss` - file outputted by the grunt-attractions task. It is recreated on every run.
@@ -255,6 +255,7 @@ This is an extreme example illustrating a number of uses. You may like the cross
 Date | Release | Notes
 --- | --- | ---
 2014-11-05 | v0.1.0 | Initial release
+2015-01-08 | v0.1.1 | Match attributes wrapped in apostrophes
 
 ## Roadmap
 - Improve, document & extend the demos

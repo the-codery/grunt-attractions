@@ -1,36 +1,36 @@
 {
-  "name": "grunt-attractions",
-  "version": "0.1.0",
-  "description": "Attribute based actions",
-  "repository": "https://github.com/the-codery/grunt-attractions.git",
-  "author": {
-    "name": "Chris Jones",
-    "email": "dev@thecodery.co.uk",
-    "url": "twitter.com/thisischrisj"
-  },
-  "keywords": [
-    "gruntplugin"
-  ],
-  "main": "tasks/attract.js",
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "grunt": "0.4.2",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-nodeunit": "~0.3.0",
-    "jshint-stylish": "~0.1.5",
-    "load-grunt-tasks": "~0.3.0",
-    "grunt-contrib-compass": "^1.0.1",
-    "grunt-contrib-connect": "^0.8.0"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
-  "dependencies": {
-    "lodash": "^2.4.1",
-    "grunt-lib-phantomjs": "^0.6.0"
-  }
+	"name": "grunt-attractions",
+	"version": "0.1.1",
+	"description": "Attribute based actions",
+	"repository": "https://github.com/the-codery/grunt-attractions.git",
+	"author": {
+		"name": "Chris Jones",
+		"email": "dev@thecodery.co.uk",
+		"url": "twitter.com/thisischrisj"
+	},
+	"keywords": [
+		"gruntplugin"
+	],
+	"main": "tasks/attract.js",
+	"engines": {
+		"node": ">=0.10.0"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"grunt": "0.4.2",
+		"grunt-contrib-clean": "~0.5.0",
+		"grunt-contrib-jshint": "~0.8.0",
+		"grunt-contrib-nodeunit": "~0.3.0",
+		"jshint-stylish": "~0.1.5",
+		"load-grunt-tasks": "~0.3.0",
+		"grunt-contrib-compass": "^1.0.1",
+		"grunt-contrib-connect": "^0.8.0"
+	},
+	"scripts": {
+		"test": "grunt test"
+	},
+	"dependencies": {
+		"lodash": "^2.4.1",
+		"grunt-lib-phantomjs": "^0.6.0"
+	}
 }

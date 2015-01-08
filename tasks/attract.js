@@ -181,12 +181,13 @@ module.exports = function (grunt)
 
 					// Find all attribute words
 					var attrMatch = options.attributes.join("|");
-					var attrPattern = new RegExp('(' + attrMatch + ')="([^"]+)"', 'gi');
+					var attrPattern = new RegExp('(' + attrMatch + ')=("|\')([^"\']+)', 'gi');
 					var match = attrPattern.exec(contents);
 					while (match != null)
 					{
+						console.log(match);
 						// If found, construct an array of attributes
-						thisTerms.push(match[2].split(/[\s,]+/));
+						thisTerms.push(match[3].split(/[\s,]+/));
 
 						// Find the next
 						match = attrPattern.exec(contents);
