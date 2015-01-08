@@ -185,7 +185,6 @@ module.exports = function (grunt)
 					var match = attrPattern.exec(contents);
 					while (match != null)
 					{
-						console.log(match);
 						// If found, construct an array of attributes
 						thisTerms.push(match[3].split(/[\s,]+/));
 
