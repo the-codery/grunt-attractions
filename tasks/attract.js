@@ -181,12 +181,18 @@ module.exports = function (grunt)
 
 					// Find all attribute words
 					var attrMatch = options.attributes.join("|");
-					var attrPattern = new RegExp('(' + attrMatch + ')=("|\')([^"\']+)', 'gi');
+
+					// v01 - THIS PATTERN DOESN'T MAKE SURE THE OPENING AND CLOSING QUOTES ARE THE SAME
+					// var attrPattern = new RegExp('(' + attrMatch + ')=("|\')([^"\']+)', 'gi');
+
+					// v02 - THIS PATTERN DOES NOT ACCOUNT FOR ESCAPED QUOTE MARKS (see http://stackoverflow.com/a/171499)
+					var attrPattern = new RegExp('(' + attrMatch + ')=(["\'])(.*?)\\2', 'gi');
+
 					var match = attrPattern.exec(contents);
 					while (match != null)
 					{
 						// If found, construct an array of attributes
-						thisTerms.push(match[3].split(/[\s,]+/));
+						thisTerms.push(match[3].split(/[\s,'"]+/));
 
 						// Find the next
 						match = attrPattern.exec(contents);

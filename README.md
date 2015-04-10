@@ -256,6 +256,7 @@ Date | Release | Notes
 --- | --- | ---
 2014-11-05 | v0.1.0 | Initial release
 2015-01-08 | v0.1.1 | Match attributes wrapped in apostrophes
+2015-04-10 | v0.1.2 | Ensure opening and closing quotes match (e.g. single with single, double with double). Allow zero length matches (so that `class="" data-attract="foo"` doesn't match `class="" data-attract="` due to skipping over the immediately closing quote).
 
 ## Roadmap
 - Improve, document & extend the demos
