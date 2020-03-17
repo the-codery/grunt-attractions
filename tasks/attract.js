@@ -90,13 +90,14 @@ module.exports = function (grunt)
 			// How to output the terms (default: scss list variable)
 			outputFunction: function(terms)
 			{
-				var output = "$attract: (";
+				var output = "$attract: () !default;\n";
+				output += "$attract: join($attract, (";
 				_.each(terms, function(thisTerm)
 				{
 					output += "\n\t'" + thisTerm + "',";
 				});
 				output = output.replace(/,*$/, ""); // Trim trailing comma
-				output += "\n);";
+				output += "\n));";
 				return output;
 			}
 		});
